@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants.js";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -24,6 +25,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (error) {
+      setError(error?.response?.data);
       console.log("handleLogin Error :: ", error);
     }
   };
@@ -76,6 +78,7 @@ const Login = () => {
             />
           </label>
           <div className="card-actions justify-center">
+            <p className="text-red-500">{error}</p>
             <button className="btn btn-primary" onClick={handleLogin}>
               Login
             </button>
